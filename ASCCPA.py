@@ -80,12 +80,12 @@ class Window(Frame):#(tk.Frame):
         root = tk.Tk()
         
         #self.root = tk.Toplevel.__init__(self, master)
-         # создаем рабочую область
+        # создаем рабочую область
         frame = tk.Frame(root)
         frame.grid()
         ####
         
-        self.imageideam()
+        self.imagecenit()
         self.Next()
         self.OpenFile()
         self.plotserieinicial()
@@ -94,17 +94,6 @@ class Window(Frame):#(tk.Frame):
         self.crosscorrel()
         self.correl()
         self.analisis_regresion()
-        self.abrirdatos()
-        self.graficarserie()
-        self.prediccionpromedio()
-        self.Media_movil()
-        self.suavizado_exponencial_simple()
-        self.medtodo_tendencia_lineal_holt()
-        self.metodo_holt_winter()
-        self.metodo_arima()
-        self.AutoReg()
-        self.ma_arma_arima()
-        self.SARIMA()
         self.analisis_parametros_ARIMA()
         self.test_resultados_modelo_arima()
         self.mostrar_pronostico()
@@ -112,12 +101,12 @@ class Window(Frame):#(tk.Frame):
         self.graficar_todo()
         self.graficar_una_serie()
 
-    def imageideam(self):
+    def imagecenit(self):
         image = Image.open("LogoGrupoCENIT_2.png")
         photo = ImageTk.PhotoImage(image)
         # Добавим изображение
-        self.canvas = tk.Canvas(self, height=1000, width=1200)
-        self.canvas.create_image(10, 10, anchor='nw', image=photo)
+        self.canvas = tk.Canvas(self, height=768, width=1024)
+        self.canvas.create_image(20, 10, anchor='nw', image=photo)
         self.canvas.grid(row=2, column=1)
         root.mainloop()
         
@@ -140,37 +129,16 @@ class Window(Frame):#(tk.Frame):
         AnalisisEspectral.add_command(label="Filtrar", command=self.filtro)
         menu.add_cascade(label="Análisis Espectral", menu=AnalisisEspectral)
         #############################################
-        # create the file object)
-        #file = Menu(menu) # Tak mozzno otdeliat Menu
         Correlacion_Cruzada = Menu(menu, tearoff=0)
-        # adds a command to the menu option, calling it exit, and the
-        # command it runs on event is client_exit
-        #Correlacion_Cruzada.add_command(label="Открыть...", command=self.openfn, foreground='red',font = ('bold',10))#Verdana
         Correlacion_Cruzada.add_command(label="Análisis de Correlación Cruzada", command=self.crosscorrel)
         Correlacion_Cruzada.add_command(label="Correlación", command=self.correl)
         Correlacion_Cruzada.add_command(label="Análisis de Regresión", command=self.analisis_regresion)
         Correlacion_Cruzada.add_command(label="Exit", command=self.close_win)
-        #added "file" to our menu
         menu.add_cascade(label="Correlacion_Cruzada", menu=Correlacion_Cruzada)
         #############################################
-        # create the file object)
-        Prediccion = Menu(menu, tearoff=0)
-        Prediccion.add_command(label="Abrir Datos", command=self.abrirdatos, foreground='red',font = ('bold',10))
-        Prediccion.add_command(label="Graficar serie", command=self.graficarserie)
-        Prediccion.add_command(label="Método de Promedio", command=self.prediccionpromedio)
-        Prediccion.add_command(label="Media móvil", command=self.Media_movil)
-        Prediccion.add_command(label="Suavizado Exponencial Simple", command=self.suavizado_exponencial_simple)
-        Prediccion.add_command(label="Método de tendencia lineal de Holt", command=self.medtodo_tendencia_lineal_holt)
-        Prediccion.add_command(label="Metodo Holt-Winter", command=self.metodo_holt_winter)
-        Prediccion.add_command(label="Metodo ARIMA", command=self.metodo_arima)
-        Prediccion.add_command(label="Metodo Autoregression", command=self.AutoReg)
-        Prediccion.add_command(label="Metodo ma_arma_arima", command=self.ma_arma_arima)
-        Prediccion.add_command(label="Metodo Seasonal Autoregressive Integrated Moving-Average", command=self.SARIMA)
-        #Prediccion.add_command(label="Metodo Simple Exponential Smoothing", command=self.SES)
-        menu.add_cascade(label="Predicción", menu=Prediccion)
         #############################################
         Prediccion_arima = Menu(menu, tearoff=0)
-        Prediccion_arima.add_command(label="Análisis_parámetros_ARIMA", command=self.analisis_parametros_ARIMA)
+        Prediccion_arima.add_command(label="Análisis parámetros_ARIMA", command=self.analisis_parametros_ARIMA)
         Prediccion_arima.add_command(label="Resultados Test ARIMA", command=self.test_resultados_modelo_arima)
         Prediccion_arima.add_command(label="Mostrar Pronostico", command=self.mostrar_pronostico)
         Prediccion_arima.add_command(label="Graficar todo", command=self.graficar_todo)
@@ -179,11 +147,11 @@ class Window(Frame):#(tk.Frame):
         menu.add_cascade(label="Predicción_arima", menu=Prediccion_arima)
         #############################################
         helpmenu = Menu(menu, tearoff=0)
-        helpmenu.add_command(label="Help", command=self.showText)
+        helpmenu.add_command(label="Ayuda", command=self.show_help)
         helpmenu.add_command(label="About", command=self.about, foreground='blue',font = ('bold',10))#Verdana
         menu.add_cascade(label="Help", menu=helpmenu)
         ##################################################
-        self.imageideam()
+        self.imagecenit()
         #####################################################################################################
 
     # from tkinter import messagebox as mb
@@ -219,7 +187,7 @@ class Window(Frame):#(tk.Frame):
         img.place(x=0, y=0)
 
 
-    def showText(self):
+    def show_help(self):
         win = Toplevel(root)
         win.geometry("300x300")
         lab = Label(win, text="Hey there good lookin!",foreground='blue',font = ('bold',10))
@@ -235,7 +203,8 @@ class Window(Frame):#(tk.Frame):
     def about(self):
         win = Toplevel(root)
         win.geometry("300x150")
-        lab = Label(win, text="Tratamiento de Datos\n\n Версия программы 1.0\n\n Realizado por grupo CENIT:\n Igor Malikov y Nancy Villegas",foreground='blue',font = ('bold',10),justify=CENTER)
+        lab = Label(win, text="Tratamiento de Datos\n\n Versión del programa 1.0\n\n Realizado por grupo CENIT:\n "
+                              "Igor Malikov y Nancy Villegas",foreground='blue',font = ('bold',10),justify=CENTER)
         lab.pack()
 
     # Button dlia prodolzzenia
@@ -246,7 +215,7 @@ class Window(Frame):#(tk.Frame):
         btn.wait_variable(var)
         btn.place_forget()
         self.canvas.delete('all')
-        #self.imageideam()
+        #self.imagecenit()
 
     def text_canvas_StringVar(self,x1,y1,text1,text2,ancho,x2,y2):
         global nombr_variable_str
@@ -276,8 +245,8 @@ class Window(Frame):#(tk.Frame):
         # Lee archivo de datos
     ##########################################
         while True:
-            self.canvas.create_text(450, 40, fill="darkblue", font="Times 12  bold",
-                                    text="Abra el archivo de datos iniciales: 01_Datos.xlsx")
+            #self.canvas.create_text(450, 40, fill="darkblue", font="Times 12  bold",
+            #                        text="Abre el archivo de datos iniciales: 01_Datos.xlsx")
             filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                        filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
             try:
@@ -285,11 +254,11 @@ class Window(Frame):#(tk.Frame):
                 break
             except FileNotFoundError:
                 messagebox.showerror("Error","Algo salió mal al abrir el archivo")
-                continue
+                root.mainloop()
             if filename_xlsx !=0:
-                break
+                root.mainloop()
         ##########################################
-        self.text_canvas_StringVar(350, 70, "Escriba el nombre de hoja de excel:","Dat_in", 20, 580, 70)
+        self.text_canvas_StringVar(350, 70, "Escriba el nombre de hoja de excel:","Dat_in", 20, 600, 70)
         sheet_name_xlsx = nombr_variable_str
         self.text_canvas_IntVar(350, 90, "Escriba el numero de la columna de la fecha:","0", 20, 600, 90)
         num_col = nombr_variable_int
@@ -305,7 +274,7 @@ class Window(Frame):#(tk.Frame):
         nmbr_sr=Dat.iloc[:, num_col_ser]
         ##########################################
         self.canvas.delete('all')
-        self.imageideam()
+        self.imagecenit()
 
 
 
@@ -316,15 +285,6 @@ class Window(Frame):#(tk.Frame):
         self.c_image = self.canvas.create_image(x, y, anchor='nw', image=self.photo)
         self.canvas.grid(row=gridrow,column=gridcolumn)
 
-    '''
-    def message_error(self,nmbr_sr,text1,text2):
-        try:
-            nmbr_sr
-        except:
-            messagebox.showerror(text1, text2)
-            root.mainloop()
-        return nmbr_sr
-    '''
 
 
     def plotserieinicial(self):
@@ -336,15 +296,15 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que abrir el archivo inicial")
             root.mainloop()
         ##########################################
-        self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold",text="Graba file: SOI_anomal.png")
+        self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold",text="")   # Grabe la gráfica: SOI_anomal.png
         filename = filedialog.asksaveasfile(title="Select file",filetypes=(("png files","*.png"), ("all files", "*.*")))
         filename = filename.name
         ##################################################
-        self.text_canvas_StringVar(300, 50,"Escriba nombre del eje X:","Meses", 20, 600, 50)
+        self.text_canvas_StringVar(300, 50,"Nombre del eje X:","Meses", 20, 600, 50)
         mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:","Índice", 20, 600, 70)
+        self.text_canvas_StringVar(300, 70, "Nombre del eje Y:","Índice", 20, 600, 70)
         mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:","TSM1+2", 20, 600, 90)
+        self.text_canvas_StringVar(300, 90, "Título de la gráfica:","TSM1+2", 20, 600, 90)
         mbr_ttl = nombr_variable_str
         #self.text_canvas_StringVar(300, 110, "Escriba nombre de la Legenda:","TSM1+2", 20, 600, 110)
         #mbr_lgnd = nombr_variable_str
@@ -379,11 +339,11 @@ class Window(Frame):#(tk.Frame):
         self.c_image = self.canvas.create_image(250, 150, anchor='nw', image=self.photo)
         self.canvas.grid(row=2, column=1)
         '''
-        self.positiongraf(filename, 250, 150, 2, 1)
+        self.positiongraf(filename, 192, 48, 2, 1)
         ##################################################
         # Button dlia prodolzzenia
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
         ##################################################
 
 
@@ -415,7 +375,7 @@ class Window(Frame):#(tk.Frame):
         plt.ylabel(mbr_y, fontsize=10)
         plt.show()
         plt.close()
-        #self.imageideam()
+        #self.imagecenit()
 
     def filtro(self):
         ##########################################
@@ -512,7 +472,7 @@ class Window(Frame):#(tk.Frame):
         ##################################################
         self.Next(relx=.5, rely=.9)
         ##################################################
-        self.imageideam()
+        self.imagecenit()
         ##################################################
 
 
@@ -522,8 +482,8 @@ class Window(Frame):#(tk.Frame):
     def crosscorrel(self):
         ###############################################
         # Lee archivo de datos
-        self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 01_Datos.xlsx")
+        #self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre archivo de datos iniciales: 01_Datos.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
@@ -533,15 +493,15 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que abrir el archivo inicial")
             root.mainloop()
         ##########################################
-        self.text_canvas_StringVar(320,70,"Escriba el nombre de la hoja del excel de la 1 serie:","Dat_in",20,610,70)
+        self.text_canvas_StringVar(320,100,"Escriba el nombre de la hoja del excel de la 1 serie:","Dat_in",20,610,100)
         sheet_name_xlsx1 = nombr_variable_str
-        self.text_canvas_IntVar(340,90,"Escribe el numero de la columna de la fecha:","0",20,610,90)
+        self.text_canvas_IntVar(340,120,"Escribe el numero de la columna de la fecha:","0",20,610,120)
         num_col = nombr_variable_int
-        self.text_canvas_IntVar(350,110,"Escribe el numero de la columna de la serie 1:","1",20,610,110)
+        self.text_canvas_IntVar(350,140,"Escribe el numero de la columna de la serie 1:","1",20,610,140)
         num_col_ser1 = nombr_variable_int
-        self.text_canvas_StringVar(320, 130, "Escriba el nombre de la hoja del excel de la 2 serie:", "Dat_in", 20, 610, 130)
+        self.text_canvas_StringVar(320, 160, "Escriba el nombre de la hoja del excel de la 2 serie:", "Dat_in", 20, 610, 160)
         sheet_name_xlsx2 = nombr_variable_str
-        self.text_canvas_IntVar(350,150,"Escribe el numero de la columna de la serie 2:","6",20,610,150)
+        self.text_canvas_IntVar(350,180,"Escribe el numero de la columna de la serie 2:","6",20,610,180)
         num_col_ser2 = nombr_variable_int
         self.Next(relx=.5, rely=.4)
         sheet_name_xlsx1 = sheet_name_xlsx1.get()
@@ -632,15 +592,15 @@ class Window(Frame):#(tk.Frame):
         self.positiongraf(rutasafe, 250, 150, 2, 1)
         ##################################################
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
 
 
 
     def correl(self):
         ###############################################
         # Lee archivo de datos
-        self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 01_Datos.xlsx")
+        #self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre archivo de datos iniciales: 01_Datos.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
@@ -650,15 +610,15 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que abrir el archivo inicial")
             root.mainloop()
         ##########################################
-        self.text_canvas_StringVar(320,70,"Escriba el nombre de la hoja del excel de la 1 serie:","TSM1+2_Ta_AMA1",20,610,70)
+        self.text_canvas_StringVar(320,100,"Escriba el nombre de la hoja del excel de la 1 serie:","TSM1+2_Ta_AMA1",20,610,100)
         sheet_name_xlsx1 = nombr_variable_str
         #self.text_canvas_IntVar(340,90,"Escribe el numero de la columna de la fecha:","0",20,610,90)
         #num_col = nombr_variable_int
-        self.text_canvas_IntVar(350,110,"Escribe el numero de la columna de la serie 1:","0",20,610,110)
+        self.text_canvas_IntVar(350,130,"Escribe el numero de la columna de la serie 1:","0",20,610,130)
         num_col_ser1 = nombr_variable_int
-        self.text_canvas_StringVar(320, 130, "Escriba el nombre de la hoja del excel de la 2 serie:", "TSM1+2_Ta_AMA1", 20, 610, 130)
+        self.text_canvas_StringVar(320, 160, "Escriba el nombre de la hoja del excel de la 2 serie:", "TSM1+2_Ta_AMA1", 20, 610, 160)
         sheet_name_xlsx2 = nombr_variable_str
-        self.text_canvas_IntVar(350,150,"Escribe el numero de la columna de la serie 2:","1",20,610,150)
+        self.text_canvas_IntVar(350,190,"Escribe el numero de la columna de la serie 2:","1",20,610,190)
         num_col_ser2 = nombr_variable_int
         self.Next(relx=.5, rely=.4)
         sheet_name_xlsx1 = sheet_name_xlsx1.get()
@@ -699,7 +659,7 @@ class Window(Frame):#(tk.Frame):
         ##################################################
         ##################################################
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
 
 
 
@@ -707,8 +667,8 @@ class Window(Frame):#(tk.Frame):
 
 
     def analisis_regresion(self):
-        self.canvas.create_text(350, 40, fill="darkblue", font="Times 12  bold",
-                                text="Abra el archivo de datos iniciales: 01_Datos.xlsx")
+        #self.canvas.create_text(350, 40, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre el archivo de datos iniciales: 01_Datos.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
@@ -805,624 +765,16 @@ class Window(Frame):#(tk.Frame):
         self.positiongraf(rutasafe, 250, 150, 2, 1)
         ##################################################
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
     ##############################################################
 
 
 
-    def abrirdatos(self):
-        global Dat,df,nombr_col_ser,num_in,num_long,cantidad_datos
-        self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 01_Datos.xlsx")
-        filename_xlsx = filedialog.askopenfilename(title="Select file",
-                                                   filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
-        ##########################################
-        try:
-            open(filename_xlsx, 'rb')
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        self.text_canvas_StringVar(350,70,"Escriba el nombre de hoja de excel:","SOI1",20,580,70)
-        sheet_name_xlsx = nombr_variable_str
-        self.text_canvas_StringVar(350,90,"Escriba el nombre de la columna de la fecha:","Date",20,600,90)
-        nombr_col_fecha = nombr_variable_str
-        self.text_canvas_StringVar(350,110,"Escriba el nombre de la columna de la serie:","SOIPredict",20,600,110)
-        nombr_col_ser = nombr_variable_str
-        self.text_canvas_IntVar(250,160,"Escriba el numero de inicio de la serie de entrenamiento:","0",20,600,160)
-        num_in = nombr_variable_int
-        self.text_canvas_IntVar(250,180,"Escriba el numero de longitud de la serie de entrenamiento:","830",20,600,180)
-        num_long = nombr_variable_int
-        self.text_canvas_StringVar(250,200,"Escriba la fecha de inicio de la serie:","1/1/1951",20,600,200)
-        fecha_inicio = nombr_variable_str
-        self.text_canvas_IntVar(250,220,"Escriba la cantidad de datos:","842",20,600,220)
-        cantidad_datos = nombr_variable_int
-        self.Next(relx=.5, rely=.5)
-        sheet_name_xlsx = sheet_name_xlsx.get()
-        nombr_col_fecha = nombr_col_fecha.get()
-        nombr_col_ser = nombr_col_ser.get()
-        num_long = num_long.get()
-        num_in = num_in.get()
-        fecha_inicio = fecha_inicio.get()
-        cantidad_datos = cantidad_datos.get()
-        Dat = pd.read_excel(filename_xlsx, sheet_name=sheet_name_xlsx)
-        df = pd.DataFrame(data=Dat)
-        fecha = df[nombr_col_fecha][:]
-        #fecha_train = df[nombr_col_fecha][num_in:num_long]
-        #fecha_test = df[nombr_col_fecha][num_long:]
-        #train = df[num_in:num_long]
-        #test = df[num_long:]
-        #train2 = df[nombr_col_ser][num_in:num_long]
-        #test2 = df[nombr_col_ser][num_long:]
-        #train = Dat.iloc[:, 5][0:830]  # obuchayushie dannie
-        #test = Dat.iloc[:, 5][830:]    # testovie dannie
-        # Агрегирование набора данных
-        rng = pd.date_range(fecha_inicio, periods=cantidad_datos, freq='M')
-        df = df.set_index(rng)
-        '''
-        df.Timestamp = pd.to_datetime(fecha, format='%Y%m')  # fecha[0:842]
-        df.index = df.Timestamp
-        df = df.resample('M').mean()
-        train.Timestamp = pd.to_datetime(fecha_train, format='%Y%m')  # fecha[0:830]
-        train.index = train.Timestamp
-        train = train.resample('M').mean()
-        test.Timestamp = pd.to_datetime(fecha_test, format='%Y%m')  # fecha[830:]
-        test.index = test.Timestamp
-        test = test.resample('M').mean()
-        '''
-        ##################################################
-        self.canvas.delete('all')
-        self.canvas.create_text(250, 10, fill="darkblue", font="Times 12 bold",text="Listo")
-        ##################################################
-        self.imageideam()
-
-    def graf(self,train2,test2,mbr_x,mbr_y,mbr_ttl,mbr_lgnd,nmbr_png):
-        plt.plot(train2, label='Train')
-        plt.plot(test2, label='Test')
-        plt.xlabel(mbr_x, fontsize=10)
-        plt.ylabel(mbr_y, fontsize=10)
-        plt.title(mbr_ttl)
-        plt.legend(loc='best')
-        plt.grid(True)
-        plt.legend([mbr_lgnd], loc='upper right', fontsize=8)
-        rutasafe = ('Figuras' + os.sep + nmbr_png)
-        plt.savefig(rutasafe, dpi=100)
-        # plt.show()
-        plt.close()
-        return rutasafe
-
-
-
-    def graficarserie(self):
-        #train2,test2,nombr_col_ser,num_in,num_long,num_long = self.abrirdatos()
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "SOI", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.text_canvas_StringVar(300, 110, "Escriba nombre de la Legenda:", "SOI", 20, 600, 110)
-        mbr_lgnd = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        mbr_lgnd = mbr_lgnd.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        # Строим график
-        rutasafe = self.graf(train2,test2,mbr_x, mbr_y, mbr_ttl, mbr_lgnd, 'Train_Test.png')
-        #print(rutasafe)
-        ##################################################
-        self.positiongraf(rutasafe,250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ####################################################
-
-
-    def graf2(self,train2,test2,y3,mbr_x,mbr_y,mbr_ttl,nmbr_png):
-        plt.plot(train2, label='Train')
-        plt.plot(test2, label='Test')
-        plt.plot(y3, label = mbr_ttl)
-        plt.xlabel(mbr_x, fontsize=10)
-        plt.ylabel(mbr_y, fontsize=10)
-        plt.title(mbr_ttl)
-        plt.legend(loc='best')
-        plt.grid(True)
-        rutasafe = ('Figuras' + os.sep + nmbr_png)
-        plt.savefig(rutasafe, dpi=100)
-        # plt.show()
-        plt.close()
-        return rutasafe
-
-
-    def prediccionpromedio(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        y_hat_avg = test.copy()
-        y_hat_avg['avg_forecast'] = train2.mean()
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "Average Forecast", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2,test2,y_hat_avg['avg_forecast'],mbr_x,mbr_y,mbr_ttl,'Predict_Prom.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.avg_forecast))
-        #print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ######################################################
-
-
-
-    def Media_movil(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        # Скользящее среднее.
-        y_hat_avg = test.copy()
-        y_hat_avg['moving_avg_forecast'] = train2.rolling(60).mean().iloc[-1]
-        print(y_hat_avg['moving_avg_forecast'])
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "Moving Average Forecast", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, y_hat_avg['moving_avg_forecast'], mbr_x, mbr_y, mbr_ttl,'Predict_MediaMovil.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.moving_avg_forecast))
-        #print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ######################################################
-
-
-    def suavizado_exponencial_simple(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        # простое экспоненциальное сглаживание
-        y_hat_avg = test.copy()
-        fit2 = SimpleExpSmoothing(np.asarray(train2)).fit(smoothing_level=0.8, optimized=False)
-        y_hat_avg['SES'] = fit2.forecast(len(test2))
-        print(y_hat_avg['SES'])
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "SES", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, y_hat_avg['SES'], mbr_x, mbr_y, mbr_ttl,
-                              'Predict_suavizado_exponencial_simple.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.SES))
-        #print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ######################################################
-
-
-    def medtodo_tendencia_lineal_holt(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        #  метод линейного тренда Холта
-        # sm.tsa.seasonal_decompose(trainserie).plot()
-        # result = sm.tsa.stattools.adfuller(trainserie)
-        # plt.show()
-        self.text_canvas_DoubleVar(330,70,"Escriba smoothing_level:","0.8",20,560,70)
-        smooth_lvl = nombr_variable_dbl
-        self.text_canvas_DoubleVar(330,90,"Escriba smoothing_trend:","1.4",20,560,90)
-        smooth_trend = nombr_variable_dbl
-        self.text_canvas_StringVar(330,110,"Escriba optimized:","False",20,560,110)
-        optimiz = nombr_variable_str
-        self.Next(relx=.5, rely=.3)
-        smooth_lvl = smooth_lvl.get()
-        smooth_trend = smooth_trend.get()
-        optimiz = optimiz.get()
-        y_hat_avg = test.copy()
-        fit1 = Holt(np.asarray(train2)).fit(smoothing_level=smooth_lvl, smoothing_trend=smooth_trend,
-                                                optimized=optimiz)  # smoothing_slope=0.1
-        y_hat_avg['Holt_linear'] = fit1.forecast(len(test2))
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "Holt_linear", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, y_hat_avg['Holt_linear'], mbr_x, mbr_y, mbr_ttl,
-                              'Predict_medtodo_tendencia_lineal_holt.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.Holt_linear))
-        # print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
-
-    def metodo_holt_winter(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        self.text_canvas_IntVar(330,70,"Escriba seasonal_periods:","4",20,560,70)
-        smooth_prd = nombr_variable_int
-        self.text_canvas_StringVar(330,90,"Escriba trend:","add",20,560,90)
-        trnd = nombr_variable_str
-        self.text_canvas_StringVar(330,110,"Escriba seasonal:","False",20,560,110)
-        seasnl = nombr_variable_str
-        self.text_canvas_StringVar(330,130,"Escriba damped_trend:","True",20,560,130)
-        dampd_trnd = nombr_variable_str
-        self.text_canvas_StringVar(330,150,"Escriba initialization_method:","estimated",20,560,150)
-        initial_methd = nombr_variable_str
-        self.Next(relx=.5, rely=.3)
-        smooth_prd = smooth_prd.get()
-        trnd = trnd.get()
-        seasnl = seasnl.get()
-        dampd_trnd = dampd_trnd.get()
-        initial_methd = initial_methd.get()
-        #  Метод  – Метод Холта-Винтера
-        y_hat_avg = test.copy()
-        # seasonal_periods=7, trend='add', seasonal='add', # fit smoothing_level=0.8, smoothing_trend=0.2, optimized=False
-        fit1 = ExponentialSmoothing(np.asarray(train2), seasonal_periods=smooth_prd, trend=trnd, seasonal='add',
-                                     damped_trend=dampd_trnd,initialization_method=initial_methd ).fit()
-        y_hat_avg['Holt_Winter'] = fit1.forecast(len(test2))
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "Holt Winter", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, y_hat_avg['Holt_Winter'], mbr_x, mbr_y, mbr_ttl,
-                              'Predict_metodo_holt_winter.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.Holt_Winter))
-        #print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
-
-    def metodo_arima(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        self.text_canvas_StringVar(330,110,"Escriba order de ARIMA:","1, 1, 1",20,560,110)
-        order_arima = nombr_variable_str
-        self.text_canvas_StringVar(330,140,"Escriba trend de ARIMA:","c",20,560,140)
-        trend_arima = nombr_variable_str
-        self.text_canvas_StringVar(330,170,"Escriba seasonal order de ARIMA:","1, 3, 1, 2",20,560,170)
-        seasnl_trend_arima = nombr_variable_str
-        self.Next(relx=.5, rely=.3)
-        order_arima = order_arima.get()
-        order_arima = np.fromstring(order_arima, dtype=float, sep=',')
-        seasnl_trend_arima = seasnl_trend_arima.get()
-        seasnl_trend_arima = np.fromstring(seasnl_trend_arima, dtype=float, sep=',')
-        trend_arima = trend_arima.get()
-        # Метод – ARIMA
-        y_hat_avg = test.copy()
-        #  trainserie, order=(2, 1, 4), seasonal_order=(1, 2, 1, 12)
-        #  fit1 = sm.tsa.statespace.SARIMAX(train2, order=(1, 1, 1), trend='c', seasonal_order=(1, 2, 1, 4)).fit()
-        fit1 = sm.tsa.statespace.SARIMAX(train2, order=(order_arima), trend=trend_arima,
-                                         seasonal_order=(seasnl_trend_arima),mle_regression=True).fit()
-        y_hat_avg['SARIMA'] = fit1.predict(start=num_long, end=cantidad_datos, dynamic=True)
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "SARIMA", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, y_hat_avg['SARIMA'], mbr_x, mbr_y, mbr_ttl,
-                              'Predict_metodo_arima.png')
-        rms = sqrt(mean_squared_error(test2, y_hat_avg.SARIMA))
-        # print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
-
-    def AutoReg(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        # fit model
-        model = AutoReg(train2, lags=1)
-        model_fit = model.fit()
-        # make prediction
-        yhat = model_fit.predict((num_long), (cantidad_datos-1))
-        #print(yhat)
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "AutoReg", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, yhat, mbr_x, mbr_y, mbr_ttl, 'Predict_metodo_AutoReg.png')
-        #print(len(test2),len(yhat))
-        rms = sqrt(mean_squared_error(test2, yhat))
-        # print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
-
-    def ma_arma_arima(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        self.canvas.create_text(330, 110, fill="darkblue", font="Times 12  bold",
-                                text="Moving Average (MA):order=(0, 0, 1)")
-        self.canvas.create_text(330, 130, fill="darkblue", font="Times 12  bold",
-                                text="Autoregressive Moving Average (ARMA):order=(2, 0, 1)")
-        self.canvas.create_text(330, 150, fill="darkblue", font="Times 12  bold",
-                                text="Autoregressive Integrated Moving Average (ARIMA):order=(1, 1, 1)")
-        self.text_canvas_StringVar(x1=330, y1=200, text1="Escriba order de ARIMA:", text2="0, 0, 1",
-                                ancho=20, x2=560, y2=200)
-        order_arima = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        order_arima = order_arima.get()
-        order_arima = np.fromstring(order_arima, dtype=float, sep=',')
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        # fit model
-        model = ARIMA(train2, order=(order_arima))
-        model_fit = model.fit()
-        # make prediction
-        yhat = model_fit.predict((num_long), (cantidad_datos-1))
-        #print(yhat)
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "AutoReg_arima", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, yhat, mbr_x, mbr_y, mbr_ttl, 'Predict_moving_average_arima.png')
-        rms = sqrt(mean_squared_error(test2, yhat))
-        #print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                    text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                    text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
-
-
-
-    def SARIMA(self):
-        ##########################################
-        try:
-            num_in
-        except:
-            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
-            root.mainloop()
-        ##########################################
-        test = df[num_long:]
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        self.text_canvas_StringVar(330,110,"Escriba order de SARIMAX:","1, 1, 1",20,560,110)
-        order_arima = nombr_variable_str
-        self.text_canvas_StringVar(330,140,"Escriba seasonal order de SARIMAX:","0, 0, 0, 0",20,560,140)
-        seasnl_trend_arima = nombr_variable_str
-        self.Next(relx=.5, rely=.3)
-        order_arima = order_arima.get()
-        order_arima = np.fromstring(order_arima, dtype=float, sep=',')
-        seasnl_trend_arima = seasnl_trend_arima.get()
-        seasnl_trend_arima = np.fromstring(seasnl_trend_arima, dtype=float, sep=',')
-        # Метод – ARIMA
-        # fit model
-        model = SARIMAX(train2, order=(order_arima), seasonal_order=(seasnl_trend_arima))
-        model_fit = model.fit(disp=False)
-        # make prediction
-        yhat = model_fit.predict((num_long), (cantidad_datos - 1))
-        #yhat = model_fit.predict((num_long), (cantidad_datos-1)+ 12,
-        #                          typ='levels').rename('Forecast')
-        print(yhat)
-        ##########################################
-        self.text_canvas_StringVar(300, 50, "Escriba nombre del eje X:", "Meses", 20, 600, 50)
-        mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300, 70, "Escriba nombre del eje Y:", "Anomalia", 20, 600, 70)
-        mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300, 90, "Escriba nombre del Titulo:", "SARIMAX", 20, 600, 90)
-        mbr_ttl = nombr_variable_str
-        self.Next(relx=.5, rely=.4)
-        mbr_x = mbr_x.get()
-        mbr_y = mbr_y.get()
-        mbr_ttl = mbr_ttl.get()
-        train2 = df[nombr_col_ser][num_in:num_long]
-        test2 = df[nombr_col_ser][num_long:]
-        ##################################################
-        rutasafe = self.graf2(train2, test2, yhat, mbr_x, mbr_y, mbr_ttl, 'Predict_metodo_sarimax.png')
-        rms = sqrt(mean_squared_error(test2, yhat))
-        # print(rms)
-        self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
-                                text='mean_squared_error =')
-        self.canvas.create_text(450, 50, fill="red", font="Times 12  bold",
-                                text=round(rms, 2))
-        ##################################################
-        self.positiongraf(rutasafe, 250, 150, 2, 1)
-        ##################################################
-        self.Next(relx=.5, rely=.9)
-        self.imageideam()
-        ##################################################
 
 
 
     def analisis_parametros_ARIMA(self):
-        self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 01_Datos.xlsx")
+        #self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",text="Abre archivo de datos iniciales: 01_Datos.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
@@ -1432,42 +784,79 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que abrir el archivo inicial")
             root.mainloop()
         ##########################################
-        self.text_canvas_StringVar(350,70,"Escriba el nombre de hoja de excel:","ICPr_AND2",20,580,70)
+        self.text_canvas_StringVar(350,70,"Nombre de la hoja de excel:","Pr_AND21",20,600,70)
         sheet_name_xlsx = nombr_variable_str
-        self.text_canvas_StringVar(350,90,"Escriba la fecha de inicio de la serie:","1/1/1971",20,600,90)
+        self.text_canvas_StringVar(350,90,"Fecha de inicio de la serie:","1/1/1971",20,600,90)
         fecha_inicio = nombr_variable_str
-        #self.text_canvas_IntVar(350,110,"Escriba la cantidad de datos:","500",20,600,110)
-        #cantidad_datos = nombr_variable_int
-        self.text_canvas_StringVar(350,110,"Escriba el nombre de la columna de la serie:","ICPr_AND2",20,600,110)
+        self.text_canvas_StringVar(350,110,"Nombre de la columna de la serie:","Pr_AND2",20,600,110)
         nombr_col_ser = nombr_variable_str
-        self.Next(relx=.5, rely=.3)
+        self.canvas.create_text(350, 130, fill="darkblue", font="Helvetica 10",text="Parámetros del modelo ARIMA")
+        self.text_canvas_IntVar(350, 150, "start_p:", "1", 20, 600, 150)
+        n1 = nombr_variable_int
+        self.text_canvas_IntVar(350, 170, "start_q:", "1", 20, 600, 170)
+        n2 = nombr_variable_int
+        self.text_canvas_IntVar(350, 190, "max_p:", "3", 20, 600, 190)
+        n3 = nombr_variable_int
+        self.text_canvas_IntVar(350, 210, "max_q:", "3", 20, 600, 210)
+        n4 = nombr_variable_int
+        self.text_canvas_IntVar(350, 230, "m:", "12", 20, 600, 230)
+        n5 = nombr_variable_int
+        self.text_canvas_IntVar(350, 250, "start_P:", "0", 20, 600, 250)
+        n6 = nombr_variable_int
+        self.text_canvas_StringVar(350, 270, "seasonal:", "True", 20, 600, 270)
+        n7 = nombr_variable_str
+        #self.text_canvas_StringVar(350, 290, "d:", 'None', 20, 600, 290)
+        #n8 = nombr_variable_str
+        self.text_canvas_IntVar(350, 290, "d:", "0", 20, 600, 290)
+        n8 = nombr_variable_int
+        self.text_canvas_IntVar(350, 310, "D:", "1", 20, 600, 310)
+        n9 = nombr_variable_int
+        self.text_canvas_StringVar(350, 330, "trace:", "True", 20, 600, 330)
+        n10 = nombr_variable_str
+        self.text_canvas_StringVar(350, 350, "error_action:", "ignore", 20, 600, 350)
+        n11 = nombr_variable_str
+        self.text_canvas_StringVar(350, 370, "suppress_warnings:", "True", 20, 600, 370)
+        n12 = nombr_variable_str
+        self.text_canvas_StringVar(350, 390, "stepwise:", "True", 20, 600, 390)
+        n13 = nombr_variable_str
+        self.canvas.create_text(500, 570, fill="black", font="Helvetica 10",
+                                text="El cálculo de los coeficientes del modelo puede tardar\n"
+                                     "varios minutos, dependiendo de la capacitad del computador")
+        self.Next(relx=.5, rely=.8)
         sheet_name_xlsx = sheet_name_xlsx.get()
         fecha_inicio = fecha_inicio.get()
-        #cantidad_datos = cantidad_datos.get()
         nombr_col_ser = nombr_col_ser.get()
+        n1 = n1.get()
+        n2 = n2.get()
+        n3 = n3.get()
+        n4 = n4.get()
+        n5 = n5.get()
+        n6 = n6.get()
+        n7 = n7.get()
+        n8 = n8.get()
+        n9 = n9.get()
+        n10 = n10.get()
+        n11 = n11.get()
+        n12 = n12.get()
+        n13 = n13.get()
         Dat = pd.read_excel(filename_xlsx, sheet_name=sheet_name_xlsx)
         df = pd.DataFrame(data=Dat)
         rng = pd.date_range(fecha_inicio, periods=len(df), freq='M') # cantidad_datos
         df = df.set_index(rng)
         datos_in = df[nombr_col_ser]
-
-        # ETS Decomposition
-        #result = seasonal_decompose(datos_in, model='additive') #additive dlia anomaliy, multiplicative dli obchn dannih
-        # ETS plot
-        #result.plot()
-        #plt.show()
+        ##################################################
         # Parameter Analysis for the ARIMA model, pereberaet vse vozmozznie kombinacii
         warnings.filterwarnings("ignore")
         # Fit auto_arima function to datos_in dataset
-        stepwise_fit = auto_arima(datos_in, start_p=1, start_q=1,
-                                  max_p=3, max_q=3, m=12,
-                                  start_P=0, seasonal=True,
-                                  d=None, D=1, trace=True,
-                                  error_action='ignore',  # we don't want to know if an order does not work
-                                  suppress_warnings=True,  # we don't want convergence warnings
-                                  stepwise=True)  # set to stepwise
-        # To print the summary
-        print(stepwise_fit.summary())
+        stepwise_fit = auto_arima(datos_in, start_p=n1, start_q=n2,
+                                  max_p=n3, max_q=n4, m=n5,
+                                  start_P=n6, seasonal=n7,
+                                  d=n8, D=n9, trace=n10,
+                                  error_action=n11,  # we don't want to know if an order does not work
+                                  suppress_warnings=n12,  # we don't want convergence warnings
+                                  stepwise=n13);   # set to stepwise
+
+        #print(stepwise_fit.summary())
         ##################################################
         self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
                                 text='Grabar los resultados de auto_arima, como por ejemplo:')
@@ -1475,7 +864,7 @@ class Window(Frame):#(tk.Frame):
                                 text='Model: SARIMAX(2, 0, 3)x(2, 1, 0, 12):')
         self.canvas.create_text(250, 100, fill="darkblue", font="Times 12  bold",
                                 text='Resultados de auto_arima:')
-        self.canvas.create_text(450, 350, fill="red", font="Times 12  bold",
+        self.canvas.create_text(450, 380, fill="red", font="Times 12  bold",
                                 text=stepwise_fit.summary())
         ##################################################
         self.Next(relx=.5, rely=.9)
@@ -1485,8 +874,8 @@ class Window(Frame):#(tk.Frame):
         global test, train, datos_in, order_arima, seasnl_trend_arima
         global filename_xlsx, sheet_name_xlsx, nombr_col_ser
         # Fit ARIMA Model to datos_in dataset
-        self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 01_Datos.xlsx")
+        #self.canvas.create_text(350, 50, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre archivo de datos iniciales: 01_Datos.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
@@ -1496,19 +885,19 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que abrir el archivo inicial")
             root.mainloop()
         ##########################################
-        self.text_canvas_StringVar(350,70,"Escriba el nombre de hoja de excel:","ICPr_AND2",20,580,70)
+        self.text_canvas_StringVar(350,70,"Nombre de hoja de excel:","Pr_AND21",20,580,70)
         sheet_name_xlsx = nombr_variable_str
-        self.text_canvas_StringVar(350,90,"Escriba la fecha de inicio de la serie:","1/1/1971",20,600,90)
+        self.text_canvas_StringVar(350,90,"Fecha de inicio de la serie:","1/1/1971",20,600,90)
         fecha_inicio = nombr_variable_str
         #self.text_canvas_IntVar(350,110,"Escriba la cantidad de datos:","504",20,600,110)
         #cantidad_datos = nombr_variable_int
-        self.text_canvas_StringVar(350,130,"Escriba el nombre de la columna de la serie:","ICPr_AND2",20,600,130)
+        self.text_canvas_StringVar(350,130,"Nombre de la columna de la serie:","Pr_AND2",20,600,130)
         nombr_col_ser = nombr_variable_str
-        self.text_canvas_IntVar(350,150,"Escriba la cantidad de puntos para el test:","12",20,600,150)
+        self.text_canvas_IntVar(350,150,"Cantidad de puntos para el test:","12",20,600,150)
         cantd_puntos = nombr_variable_int
-        self.text_canvas_StringVar(350,170,"Escriba order de ARIMA:","3, 0, 3",20,600,170)
+        self.text_canvas_StringVar(350,170,"Order de ARIMA:","2, 0, 2",20,600,170)
         order_arima = nombr_variable_str
-        self.text_canvas_StringVar(330,190,"Escriba seasonal order de ARIMA:","2, 1, 0, 12",20,600,190)
+        self.text_canvas_StringVar(330,190,"Seasonal order de ARIMA:","2, 1, 0, 12",20,600,190)
         seasnl_trend_arima = nombr_variable_str
         self.Next(relx=.5, rely=.3)
         sheet_name_xlsx = sheet_name_xlsx.get()
@@ -1535,8 +924,8 @@ class Window(Frame):#(tk.Frame):
         result = model.fit()
         print(result.summary())
         ##################################################
-        self.canvas.create_text(250, 100, fill="darkblue", font="Times 12  bold",
-                                text='Resultados de SARIMAX:')
+        #self.canvas.create_text(250, 100, fill="darkblue", font="Times 12  bold",
+        #                        text='Resultados de SARIMAX:')
         self.canvas.create_text(450, 350, fill="red", font="Times 12  bold",
                                 text=result.summary())
         ##################################################
@@ -1576,7 +965,7 @@ class Window(Frame):#(tk.Frame):
                                 text=round(mean_squared_error(test, predictions), 2))
         ##################################################
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
 
 
 
@@ -1589,13 +978,13 @@ class Window(Frame):#(tk.Frame):
             messagebox.showerror("Error", "Hay que hacer el test ARIMA")
             root.mainloop()
         ##########################################
-        self.text_canvas_IntVar(330,70,"Escriba la cantidad de meses para predecir:","36",20,600,70)
+        self.text_canvas_IntVar(330,70,"Cantidad de meses para predecir:","36",20,600,70)
         cantd_meses = nombr_variable_int
-        self.text_canvas_StringVar(300,100,"Escriba nombre del eje X:","Meses",20,600,100)
+        self.text_canvas_StringVar(300,100,"Nombre del eje X:","Meses",20,600,100)
         mbr_x = nombr_variable_str
-        self.text_canvas_StringVar(300,130,"Escriba nombre del eje Y:","Anomalia",20,600,130)
+        self.text_canvas_StringVar(300,130,"Nombre del eje Y:","Anomalia",20,600,130)
         mbr_y = nombr_variable_str
-        self.text_canvas_StringVar(300,160,"Escriba nombre del Titulo:","ICPr_AND2",20,600,160)
+        self.text_canvas_StringVar(300,160,"Nombre del Titulo:","Pr_AND21",20,600,160)
         mbr_ttl = nombr_variable_str
         self.Next(relx=.5, rely=.3)
         cantd_meses = cantd_meses.get()
@@ -1638,11 +1027,9 @@ class Window(Frame):#(tk.Frame):
         self.positiongraf(rutasafe, 250, 150, 2, 1)
         ##################################################
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
 
-        # http://distrland.blogspot.com/2019/09/7-python.html
-        # https://machinelearningmastery.com/time-series-forecasting-methods-in-python-cheat-sheet/
-        # https://www.geeksforgeeks.org/python-arima-model-for-time-series-forecasting/
+
 
 
 
@@ -1655,17 +1042,17 @@ class Window(Frame):#(tk.Frame):
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
         ##########################################
         ##########################################
-        self.text_canvas_StringVar(350, 70, "Escriba el nombre de hoja de excel de predicción:", "ICPr_AND2forecast", 20, 620, 70)
+        self.text_canvas_StringVar(350, 70, "Nombre de hoja de excel de predicción:", "ICPr_AND2forecast", 20, 620, 70)
         sheet_name_xlsx = nombr_variable_str
-        self.text_canvas_IntVar(350, 90, "Escriba el numero de la columna de la fecha:", "0", 20, 620, 90)
+        self.text_canvas_IntVar(350, 90, "Numero de la columna de la fecha:", "0", 20, 620, 90)
         num_col_t = nombr_variable_int
-        self.text_canvas_IntVar(340, 110, "Escriba el numero de la columna de la serie inicial:", "1", 20, 620, 110)
+        self.text_canvas_IntVar(340, 110, "Numero de la columna de la serie inicial:", "1", 20, 620, 110)
         num_col_ser_y = nombr_variable_int
-        self.text_canvas_IntVar(310, 130, "Escriba el numero de la columna de suma de componentes:", "2", 20, 620, 130)
+        self.text_canvas_IntVar(310, 130, "Numero de la columna de suma de componentes:", "2", 20, 620, 130)
         num_comp = nombr_variable_int
-        self.text_canvas_IntVar(310, 150, "Escriba el numero de la columna de pronostico:", "3", 20, 620, 150)
+        self.text_canvas_IntVar(310, 150, "Numero de la columna de pronostico:", "3", 20, 620, 150)
         num_comp_prog = nombr_variable_int
-        self.text_canvas_IntVar(310, 170, "Escriba el numero de la columna de pronostico2:", "4", 20, 620, 170)
+        self.text_canvas_IntVar(310, 170, "Numero de la columna de pronostico2:", "4", 20, 620, 170)
         num_comp_prog2 = nombr_variable_int
         #self.text_canvas_IntVar(310, 190, "Escriba cantidad de meses para mostrar en el eje X:", "12", 20, 620, 190)
         #cantidad_meses = nombr_variable_int
@@ -1725,7 +1112,7 @@ class Window(Frame):#(tk.Frame):
         ##################################################
         # Button dlia prodolzzenia
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
         ##################################################
 
     def graficar_una_serie(self):
@@ -1806,12 +1193,12 @@ class Window(Frame):#(tk.Frame):
         ##################################################
         # Button dlia prodolzzenia
         self.Next(relx=.5, rely=.9)
-        self.imageideam()
+        self.imagecenit()
         ##################################################
 
     ##########################################################################
 root = tk.Tk()
-root.title('CENIT')
+root.title('ASCCPA')
 #root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file='IDEAM.png'))
 #root.iconphoto(False, tk.PhotoImage(file='IDEAM.png'))
 #root.iconbitmap('IDEAM.ico')
@@ -1827,9 +1214,9 @@ root.title('CENIT')
 
 
 #root = tk.Toplevel()
-root.geometry("1000x900")
+root.geometry("1024x768")
 #creation of an instance
 app = Window(root)
 root.mainloop()
-if __name__ == '__main__':
-    main()
+#if __name__ == '__main__':
+#    main()
