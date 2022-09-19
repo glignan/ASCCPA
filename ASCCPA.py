@@ -1036,10 +1036,15 @@ class Window(Frame):#(tk.Frame):
 
     def graficar_todo(self):
         ##########################################
-        self.canvas.create_text(450, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 03_7PuntosSeleccionados.xlsx")
+        #self.canvas.create_text(450, 50, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre archivo de datos iniciales: 03_7PuntosSeleccionados.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
+        try:
+            open(filename_xlsx, 'rb')
+        except:
+            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
+            root.mainloop()
         ##########################################
         ##########################################
         self.text_canvas_StringVar(350, 70, "Nombre de hoja de excel de predicción:", "ICPr_AND2forecast", 20, 620, 70)
@@ -1117,43 +1122,35 @@ class Window(Frame):#(tk.Frame):
 
     def graficar_una_serie(self):
         ##########################################
-        self.canvas.create_text(450, 50, fill="darkblue", font="Times 12  bold",
-                                text="Abre archivo de datos iniciales: 004_Ta_AND2.xlsx")
+        #self.canvas.create_text(450, 50, fill="darkblue", font="Times 12  bold",
+        #                        text="Abre archivo de datos iniciales: 004_Ta_AND2.xlsx")
         filename_xlsx = filedialog.askopenfilename(title="Select file",
                                                    filetypes=(("Excel files", "*.xlsx"), ("all files", "*.*")))
+        try:
+            open(filename_xlsx, 'rb')
+        except:
+            messagebox.showerror("Error", "Hay que abrir el archivo inicial")
+            root.mainloop()
         ##########################################
         ##########################################
-        self.text_canvas_StringVar(350, 70, "Escriba el nombre de hoja de excel de predicción:", "Ta_AND21", 20, 620, 70)
+        self.text_canvas_StringVar(350, 70, "Nombre de hoja de excel de predicción:", "Ta_AND21", 20, 620, 70)
         sheet_name_xlsx = nombr_variable_str
-        self.text_canvas_IntVar(350, 90, "Escriba el numero de la columna de la fecha:", "0", 20, 620, 90)
+        self.text_canvas_IntVar(350, 90, "Numero de la columna de la fecha:", "0", 20, 620, 90)
         num_col_t = nombr_variable_int
-        self.text_canvas_IntVar(340, 110, "Escriba el numero de la columna de la serie inicial:", "4", 20, 620, 110)
+        self.text_canvas_IntVar(340, 110, "Numero de la columna de la serie inicial:", "4", 20, 620, 110)
         num_col_ser_y = nombr_variable_int
-        self.text_canvas_IntVar(310, 130, "Escriba el numero de la columna de pronostico:", "9", 20, 620, 130)
+        self.text_canvas_IntVar(310, 130, "Numero de la columna de pronostico:", "9", 20, 620, 130)
         num_comp = nombr_variable_int
-        # self.text_canvas_IntVar(310, 150, "Escriba el numero de la columna de pronostico:", "3", 20, 620, 150)
-        # num_comp_prog = nombr_variable_int
-        # self.text_canvas_IntVar(310, 170, "Escriba el numero de la columna de pronostico2:", "4", 20, 620, 170)
-        # num_comp_prog2 = nombr_variable_int
-        #self.text_canvas_IntVar(310, 190, "Escriba cantidad de meses para mostrar en el eje X:", "12", 20, 620, 190)
-        #cantidad_meses = nombr_variable_int
         self.Next(relx=.5, rely=.4)
         num_col_t = num_col_t.get()
         num_col_ser_y = num_col_ser_y.get()
         num_comp = num_comp.get()
-        # num_comp_prog = num_comp_prog.get()
-        # num_comp_prog2 = num_comp_prog2.get()
-        #cantidad_meses = cantidad_meses.get()
         #############################
         sheet_name_xlsx = sheet_name_xlsx.get()
         Dat = pd.read_excel(filename_xlsx, sheet_name=sheet_name_xlsx)
         fecha = Dat.iloc[:, num_col_t]
         nmbr_sr_y = Dat.iloc[:, num_col_ser_y]
         num_sr_comp = Dat.iloc[:, num_comp]
-        # nmbr_sr_prog = Dat.iloc[:, num_comp_prog]
-        # nmbr_sr_prog2 = Dat.iloc[:, num_comp_prog2]
-        #print(nmbr_sr_y.name)
-        #print(nmbr_sr_prog.name)
         ##################################################
         self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold", text="Graba file: Reg_indexesProg.png")
         filename = filedialog.asksaveasfile(title="Select file",
@@ -1161,33 +1158,19 @@ class Window(Frame):#(tk.Frame):
         filename = filename.name
         self.Next(relx=.5, rely=.4)
         ##################################################
-        #plt.plot(fecha[::20], nmbr_sr_y[::20], 'b', linewidth=0.4)
-        #plt.plot(fecha[::20], num_sr_comp[::20], 'r', linewidth=0.4)
-        #plt.plot(fecha[::20], nmbr_sr_prog[::20], 'y', linewidth=1)
-        #plt.plot(fecha, nmbr_sr_y, 'b', linewidth=0.4)
         plt.plot(fecha, nmbr_sr_y, 'b', label=nmbr_sr_y.name, linewidth=0.4)
         plt.plot(fecha, num_sr_comp, 'r', label=num_sr_comp.name, linewidth=0.4)
-        # plt.plot(fecha, nmbr_sr_prog, 'y', label=nmbr_sr_prog.name, linewidth=0.4)
-        # plt.plot(fecha, nmbr_sr_prog2, 'g', label=nmbr_sr_prog2.name, linewidth=0.4)
         if len(nmbr_sr_y) <= 36:
             cantidad_meses = 1
         else:
             cantidad_meses = 12
         plt.xticks(np.arange(0, len(nmbr_sr_y), cantidad_meses), (fecha[::cantidad_meses]), rotation='90', fontsize=6)
-        #plt.xticks(np.arange(0, len(nmbr_sr_y), cantidad_meses), (fecha[::cantidad_meses]), rotation='90', fontsize=6)
-        # nmbr_sr_y.plot(legend=True)
-        # num_sr_comp.plot(legend=True)
-        # nmbr_sr_prog.plot(legend=True)
-        # nmbr_sr_prog2.plot(legend=True)
         plt.xlabel('Fecha', fontsize=10)
         plt.ylabel('Anomalia', fontsize=10)
         plt.title(sheet_name_xlsx)
         plt.gcf().subplots_adjust(bottom=0.15) # Chtobi vidno bilo Fecha
-        # plt.legend(mbr_lgnd, loc='best')
         plt.legend(loc='best')
-        #plt.grid(True)
         plt.savefig(filename, dpi=100)
-        # plt.show()
         plt.close()
         self.positiongraf(filename, 250, 150, 2, 1)
         ##################################################
