@@ -855,7 +855,7 @@ class Window(Frame):#(tk.Frame):
                                   error_action=n11,  # we don't want to know if an order does not work
                                   suppress_warnings=n12,  # we don't want convergence warnings
                                   stepwise=n13);   # set to stepwise
-
+        self.canvas.create_text(500, 570, fill="black", font="Helvetica 10",text=f"{stepwise_fit}")
         #print(stepwise_fit.summary())
         ##################################################
         self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
@@ -1152,10 +1152,25 @@ class Window(Frame):#(tk.Frame):
         nmbr_sr_y = Dat.iloc[:, num_col_ser_y]
         num_sr_comp = Dat.iloc[:, num_comp]
         ##################################################
-        self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold", text="Graba file: Reg_indexesProg.png")
-        filename = filedialog.asksaveasfile(title="Select file",
-                                            filetypes=(("png files", "*.png"), ("all files", "*.*")))
-        filename = filename.name
+        #self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold", text="Guardar archivo *.png")  # Graba file: Reg_indexesProg.png
+        #filename_png = filedialog.asksaveasfile(title="Select file",filetypes=(("png files", "*.png"), ("all files", "*.*")))
+        #try:
+        #    open(filename_png, 'wb')
+        #except:
+        #    messagebox.showerror("Error", "Hay que guardar el archivo *.png")
+        #    root.mainloop()
+
+        while True:
+            self.canvas.create_text(400, 10, fill="darkblue", font="Times 12 bold", text="Guardar archivo *.png")
+            filename_png = filedialog.asksaveasfile(title="Select file",
+                                                filetypes=(("png files", "*.png"), ("all files", "*.*")))
+            try:
+                if filename_png != 0:
+                    break
+            except FileNotFoundError:
+                messagebox.showerror("Error","Algo salió mal al guardar el archivo")
+                root.mainloop()
+        filename = filename_png.name
         self.Next(relx=.5, rely=.4)
         ##################################################
         plt.plot(fecha, nmbr_sr_y, 'b', label=nmbr_sr_y.name, linewidth=0.4)
@@ -1178,28 +1193,13 @@ class Window(Frame):#(tk.Frame):
         self.Next(relx=.5, rely=.9)
         self.imagecenit()
         ##################################################
-
     ##########################################################################
-root = tk.Tk()
-root.title('ASCCPA')
-#root.tk.call('wm', 'iconphoto', root._w, tk.PhotoImage(file='IDEAM.png'))
-#root.iconphoto(False, tk.PhotoImage(file='IDEAM.png'))
-#root.iconbitmap('IDEAM.ico')
-#img = tk.Image("photo", file="IDEAM.gif")
-#root.call('wm','iconphoto',root._w,img)
-# Add image file
-
-#try:
-#    root.iconbitmap('IDEAM.png')
-#    root.mainloop()
-#except TclError:
-#    print ('No ico file found')
-
-
-#root = tk.Toplevel()
-root.geometry("1024x768")
-#creation of an instance
-app = Window(root)
-root.mainloop()
-#if __name__ == '__main__':
+if __name__ == '__main__':
 #    main()
+    root = tk.Tk()
+    root.title('ASCCPA')
+    root.geometry("1024x768")
+    #creation of an instance
+    app = Window(root)
+    root.mainloop()
+
