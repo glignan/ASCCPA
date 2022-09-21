@@ -1,4 +1,4 @@
 # ASCCPA
 Spectral analysis
-cross correlation
+Cross correlation
 ARIMA Prediction
