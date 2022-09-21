@@ -855,7 +855,7 @@ class Window(Frame):#(tk.Frame):
                                   error_action=n11,  # we don't want to know if an order does not work
                                   suppress_warnings=n12,  # we don't want convergence warnings
                                   stepwise=n13);   # set to stepwise
-        self.canvas.create_text(500, 570, fill="black", font="Helvetica 10",text=f"{stepwise_fit}")
+        #self.canvas.create_text(500, 570, fill="black", font="Helvetica 10",text=f"{stepwise_fit}")
         #print(stepwise_fit.summary())
         ##################################################
         self.canvas.create_text(250, 50, fill="darkblue", font="Times 12  bold",
