@@ -3,19 +3,16 @@
 """
 Created on Mon Aug 24 14:51:18 2020
 
-@author: rog
+@author: CENIT: Igor Malikov y Nancy Villegas
 """
 
 import pandas as pd
 import tkinter as tk
 from tkinter import *
-#from tkinter import ttk
 from tkinter.ttk import *
 from PIL import Image, ImageTk
 from tkinter import filedialog
-from tkinter.filedialog import askopenfilename, asksaveasfile
-from tkinter import Tk, Frame, Menu   
-from tkinter import Button
+from tkinter import Tk, Frame, Menu
 import numpy as np
 import sys 
 import os
@@ -35,7 +32,7 @@ import scipy.stats
 
 
 
-class Window(Frame):#(tk.Frame):
+class Window(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)   
         frame = Frame(master)
