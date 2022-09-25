@@ -12,11 +12,9 @@ from tkinter import *
 from tkinter.ttk import *
 from PIL import Image, ImageTk
 from tkinter import filedialog
-from tkinter import Tk, Frame, Menu
+from tkinter import Frame, Menu
 import numpy as np
-import sys 
 import os
-sys.path.append(os.path.abspath('Func'+ os.sep))
 from tkinter import messagebox
 from scipy.signal import butter, lfilter
 import scipy.signal as signal
